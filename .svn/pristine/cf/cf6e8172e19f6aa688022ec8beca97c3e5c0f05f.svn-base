@@ -1,0 +1,16 @@
+package jpp.festivalPlanner;
+
+import java.util.Scanner;
+
+public class FestivalPlanner {
+
+	
+	
+	//
+	// public static void main(String[] args) {
+	 Scanner scanner = new Scanner(System.in);
+	// String date = scanner.nextLine();
+	// DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM. HH:mm");
+	// LocalDateTime dateTime = LocalDateTime.parse(date, dtf);
+	// }
+}

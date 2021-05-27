@@ -1,0 +1,18 @@
+package jpp.festivalPlanner.util;
+
+import java.util.Comparator;
+
+import jpp.festivalPlanner.base.Performer;
+
+public class Comp1 implements Comparator<Performer> {
+
+	public int compare(Performer a, Performer b) {
+		if (a.getStart().isEqual(b.getStart()))
+			return 0;
+		else if (a.getStart().isBefore(b.getStart()))
+			return -1;
+		else
+			return 1;
+
+	}
+}

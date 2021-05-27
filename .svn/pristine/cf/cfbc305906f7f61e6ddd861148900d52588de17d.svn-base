@@ -1,0 +1,47 @@
+package jpp.festivalPlanner.comparators;
+
+import java.time.Duration;
+import java.util.Comparator;
+
+import jpp.festivalPlanner.base.Performer;
+
+public class PriorityComparator implements Comparator<Performer> {
+	private Comparator comparator;
+
+	@Override
+	public int compare(Performer o1, Performer o2) {
+		double res1 = Duration.between(o1.getStart(), o1.getEnd()).toMillis();
+		double res2 = Duration.between(o2.getStart(), o2.getEnd()).toMillis();
+		double res3 = o1.getPriority() * res1;
+		double res4 = o2.getPriority() * res2;
+		if (o1.equals(null) && (o2.equals(null))) {
+			return 0;
+		}
+		int result = comparator.compare(res3, res4);
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getPriority(), o2.getPriority());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getEnd(), o2.getEnd());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getName(), o2.getName());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getKind(), o2.getKind());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getStage(), o2.getStage());
+		if (result != 0) {
+			return result;
+		}
+		return 0;
+	}
+
+}

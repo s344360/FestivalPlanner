@@ -1,0 +1,53 @@
+package jpp.festivalPlanner.util;
+
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import jpp.festivalPlanner.base.Performer;
+
+public class Selector {
+
+	public static List<Performer> selectNonOverlapping(Comparator<Performer> comp, Collection<Performer> col) {
+		List<Performer> bandList = new ArrayList(col);
+		Collections.sort(bandList, comp);
+		List<Performer> resultList = new ArrayList();
+		// for (Performer item : bandList) {
+		// for (Performer item1 : resultList) {
+		// if (item1.getEnd().isBefore(item.getStart())) {
+		// resultList.add(item);
+		// }
+		// }
+		// }
+		// Collections.sort(resultList, comp);
+		// return resultList;
+		// if (bandList.size() > 0) {
+		try {
+			bandList.size();
+			// }
+			int i = 0;
+			int j = 1;
+			resultList.add(bandList.get(0));
+			bandList.remove(0);
+			while (!(bandList.isEmpty())) {
+				if (resultList.get(i).getEnd().isBefore(bandList.get(j).getStart())) {
+					resultList.add(bandList.get(j));
+					bandList.remove(j);
+					i++;
+				}
+				bandList.remove(j);
+				j++;
+			}
+
+			Collections.sort(resultList, comp);
+			return resultList;
+		} catch (IllegalArgumentException e) {
+			return resultList;
+
+		}
+	}
+
+}

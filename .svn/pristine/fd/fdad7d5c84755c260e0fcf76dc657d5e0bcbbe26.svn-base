@@ -1,0 +1,98 @@
+//package jpp.festivalPlanner.util;
+//
+//import java.time.format.DateTimeParseException;
+//
+//import java.util.ArrayList;
+//import java.util.Collection;
+//import java.util.Collections;
+//import java.util.Comparator;
+//import java.util.List;
+//
+//import jpp.festivalPlanner.base.Performer;
+//
+//public class Selector {
+//
+//	public static List<Performer> selectNonOverlapping(Comparator<Performer> comp, Collection<Performer> col) {
+//		List<Performer> bandList = new ArrayList<>(col);
+//		Collections.sort(bandList, comp);
+//		List<Performer> resultList = new ArrayList<>();
+//		// for (Performer item : bandList) {
+//		// for (Performer item1 : resultList) {
+//		// if (item1.getEnd().isBefore(item.getStart())) {
+//		// resultList.add(item);
+//		// }
+//		// }
+//		// }
+//		// Collections.sort(resultList, comp);
+//		// return resultList;
+//		// if (bandList.size() > 0) {
+//
+//		int i = 1;
+//		int j = 1;
+//
+//		while (!(bandList.isEmpty())) {
+//			if (j >= 0 || j <= bandList.size()) {
+//				resultList.add(bandList.get(0));
+//				bandList.remove(0);
+//				if (resultList.get(i).getEnd().isBefore(bandList.get(j).getStart())) {
+//					resultList.add(bandList.get(j));
+//					i++;
+//				}
+//				bandList.remove(j);
+//
+//			} else {
+//				return resultList;
+//			}
+//
+//		}
+//		Collections.sort(resultList, comp);
+//		return resultList;
+//	}
+//
+//}
+
+package jpp.festivalPlanner.util;
+
+import java.util.*;
+import jpp.festivalPlanner.base.Performer;
+import jpp.festivalPlanner.comparators.TimeComparator;
+
+public class Selector {
+
+	public static boolean checkoverlapping(List<Performer> list1, Performer per1) {
+		boolean firstTime = true;
+		for (Performer a : list1)
+			if (a.getEnd().isEqual(per1.getStart()) || a.getStart().isEqual(per1.getEnd())
+					|| a.getStart().isAfter(per1.getEnd()) || a.getEnd().isBefore(per1.getStart())) {
+				firstTime = firstTime && true;
+			} else
+				firstTime = firstTime && false;
+		return firstTime;
+	}
+
+	public static List<Performer> selectNonOverlapping(Comparator<Performer> comp, Collection<Performer> col) {
+		List<Performer> coll = new ArrayList<Performer>();
+		for (Performer a : col) {
+			coll.add(a);
+		}
+		List<Performer> NonOverl = new ArrayList<Performer>();
+		if (!coll.isEmpty()) {
+			Collections.sort(coll, comp);
+			Performer t = coll.get(0);
+			coll.remove(0);
+			NonOverl.add(t);
+		}
+		while (!coll.isEmpty()) {
+			Collections.sort(coll, comp);
+			Performer t1 = coll.get(0);
+			coll.remove(0);
+			if (checkoverlapping(NonOverl, t1)) {
+				NonOverl.add(t1);
+			}
+		}
+		NonOverl.sort(new Comp1());
+		Collections.sort(NonOverl, new TimeComparator()); // gb
+		Collections.reverse(NonOverl);
+		return NonOverl;
+	}
+}

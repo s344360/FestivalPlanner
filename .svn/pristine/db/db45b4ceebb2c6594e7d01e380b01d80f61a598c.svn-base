@@ -1,0 +1,151 @@
+package jpp.festivalPlanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import jpp.festivalPlanner.base.Kind;
+import jpp.festivalPlanner.base.Performer;
+import jpp.festivalPlanner.base.Stage;
+import jpp.festivalPlanner.comparators.TimeComparator;
+
+public class FestivalPlanner {
+
+	public static void main(String[] args) {
+
+		List<Performer> bandList = new ArrayList<>();
+		Performer performer;
+		System.out.println("Insert year of the festival:");
+		Scanner sc = new Scanner(System.in);
+		String year = sc.nextLine();
+		int jahrtest;
+		try {
+			jahrtest = Integer.parseInt(year);
+		} catch (IllegalArgumentException e) {
+			return;
+		}
+		int jahr = Integer.parseInt(year);
+		System.out.println();
+
+		String x = sc.nextLine();
+		switch (x) {
+		case "add": {
+			// System.out.println("- empty -");
+
+			// String add = sc.nextLine();
+			while (x.equals("add")) {
+				// if (add.equals("add")) {
+				System.out.println("Name:");
+				// }
+				String bandName = sc.nextLine();
+
+				if (bandName.isEmpty()) {
+					System.out.println("Invalid input!");
+				}
+
+				System.out.println("Kind:");
+				String kind = sc.nextLine();
+				try {
+
+					Kind.valueOf(kind);
+				} catch (IllegalArgumentException e) {
+					System.out.println("Invalid input!");
+
+				}
+
+				System.out.println("Stage:");
+				String stage = sc.nextLine();
+				try {
+
+					Stage.valueOf(stage);
+				} catch (IllegalArgumentException e) {
+					System.out.println("Invalid input!");
+
+				}
+
+				DateTimeFormatter t1 = DateTimeFormatter.ofPattern("dd.MM. HH:mm");
+				System.out.println("Start:");
+				String start = sc.nextLine();
+				TemporalAccessor temp;
+				LocalDateTime timestart = null;
+
+				try {
+					temp = t1.parse(start);
+					timestart = LocalDateTime.of(jahr, temp.get(ChronoField.MONTH_OF_YEAR),
+							temp.get(ChronoField.DAY_OF_MONTH), temp.get(ChronoField.HOUR_OF_DAY),
+							temp.get(ChronoField.MINUTE_OF_HOUR));
+
+				} catch (DateTimeParseException e) {
+					System.out.println("Invalid input!");
+
+				}
+
+				System.out.println("End:");
+				String end = sc.nextLine();
+				LocalDateTime timeend = null;
+
+				try {
+					temp = t1.parse(end);
+					timeend = LocalDateTime.of(jahr, temp.get(ChronoField.MONTH_OF_YEAR),
+							temp.get(ChronoField.DAY_OF_MONTH), temp.get(ChronoField.HOUR_OF_DAY),
+							temp.get(ChronoField.MINUTE_OF_HOUR));
+
+				} catch (DateTimeParseException e) {
+					System.out.println("Invalid input!");
+
+				}
+
+				performer = new Performer(bandName, Kind.valueOf(kind), timestart, timeend, Stage.valueOf(stage));
+				bandList.add(performer);
+
+				System.out.println();
+				x = sc.nextLine();
+			}
+
+		}
+
+		case "list": {
+
+			if (bandList.isEmpty()) {
+				System.out.println("- empty -");
+			} else {
+
+				for (int i = 0; i < bandList.size(); i++) {
+					System.out.println("[" + i + "] " + bandList.get(i));
+				}
+			}
+			break;
+		}
+
+		case "remove": {
+
+		}
+
+		case "showPriority": {
+
+		}
+
+		case "setPriority": {
+		}
+
+		case "selection": {
+
+		}
+
+		case "exit": {
+
+		}
+
+		default: {
+			System.out.println("Invalid input!");
+		}
+
+		}
+
+	}
+}

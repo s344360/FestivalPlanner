@@ -1,0 +1,24 @@
+package jpp.festivalPlanner;
+
+import java.util.Scanner;
+
+public class FestivalPlanner {
+
+	public static void main(String[] args){
+		System.out.println("Insert year of the festival:");
+		Scanner sc = new Scanner(System.in);
+		String year = sc.nextLine();
+		System.out.println();
+		System.out.println("list");
+	}
+	
+	//
+	// public static void main(String[] args) {
+	 Scanner scanner = new Scanner(System.in);
+	 
+	// String date = scanner.nextLine();
+	// DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM. HH:mm");
+	// LocalDateTime dateTime = LocalDateTime.parse(date, dtf);
+	// }
+}
+

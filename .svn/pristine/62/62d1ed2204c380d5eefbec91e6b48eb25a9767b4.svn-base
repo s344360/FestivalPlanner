@@ -1,0 +1,39 @@
+package jpp.festivalPlanner.comparators;
+
+import java.util.Comparator;
+
+import jpp.festivalPlanner.base.Performer;
+
+public class TimeComparator implements Comparator<Performer> {
+	public Comparator<Comparable> comparator;
+
+	public int compare(Performer o1, Performer o2) {
+		int result = comparator.compare(o1.getEnd(), o2.getEnd());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getStart(), o2.getStart());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getName(), o2.getName());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getKind(), o2.getKind());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getStage(), o2.getStage());
+		if (result != 0) {
+			return result;
+		}
+		result = comparator.compare(o1.getPriority(), o2.getPriority());
+		if (result != 0) {
+			return result;
+		}
+		return 0;
+
+	}
+
+}

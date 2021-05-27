@@ -1,0 +1,91 @@
+package jpp.festivalPlanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.util.Scanner;
+
+import jpp.festivalPlanner.base.Kind;
+import jpp.festivalPlanner.base.Performer;
+import jpp.festivalPlanner.base.Stage;
+import jpp.festivalPlanner.comparators.TimeComparator;
+
+public class FestivalPlanner {
+
+	public static void main(String[] args) {
+
+		System.out.println("Insert year of the festival:");
+		Scanner sc = new Scanner(System.in);
+		String year = sc.nextLine();
+		int jahrtest;
+		try {
+			jahrtest = Integer.parseInt(year);
+		} catch (IllegalArgumentException e) {
+			return;
+		}
+		int jahr = Integer.parseInt(year);
+		System.out.println();
+		String list = sc.nextLine();
+		System.out.println("- empty -");
+
+		String add = sc.nextLine();
+		while (add.equals("add")) {
+			// if (add.equals("add")) {
+			System.out.println("Name:");
+			// }
+			String bandName = sc.nextLine();
+
+			if (bandName.isEmpty()) {
+				System.out.println("Invalid input!");
+			}
+
+			System.out.println("Kind:");
+			String kind = sc.nextLine();
+			try {
+
+				Kind.valueOf(kind);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Invalid input!");
+
+			}
+
+			System.out.println("Stage:");
+			String stage = sc.nextLine();
+			try {
+
+				Stage.valueOf(stage);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Invalid input!");
+
+			}
+
+			DateTimeFormatter t1 = DateTimeFormatter.ofPattern("dd.MM. HH:mm");
+			TemporalAccessor temp;
+			LocalDateTime time;
+			System.out.println("Start:");
+			String start = sc.nextLine();
+			try {
+				temp = t1.parse(start);
+				time = LocalDateTime.of(jahr, temp.get(ChronoField.MONTH_OF_YEAR), temp.get(ChronoField.DAY_OF_MONTH),
+						temp.get(ChronoField.HOUR_OF_DAY), temp.get(ChronoField.MINUTE_OF_HOUR));
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid input!");
+
+			}
+
+			System.out.println("End:");
+			String end = sc.nextLine();
+			try {
+				temp = t1.parse(end);
+				time = LocalDateTime.of(jahr, temp.get(ChronoField.MONTH_OF_YEAR), temp.get(ChronoField.DAY_OF_MONTH),
+						temp.get(ChronoField.HOUR_OF_DAY), temp.get(ChronoField.MINUTE_OF_HOUR));
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid input!");
+
+			}
+			add = sc.nextLine();
+		}
+	}
+}
